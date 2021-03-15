@@ -65,5 +65,9 @@ export default {
   css: ["~/assets/css/fonts"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+  server: {
+    host: "192.168.0.105",
+    port: 3000
+  }
 };
