@@ -71,12 +71,13 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-img
-              class="mx-auto"
-              max-width="500px"
-              max-height="500px"
-              src="/img/our-service-logo.svg"
-            />
+            <v-cols class="mx-auto">
+              <v-img
+                width="500px"
+                height="500px"
+                src="/img/our-service-logo.svg"
+              />
+            </v-cols>
           </v-row>
           <v-row class="mx-5">
             <v-col cols="4" v-for="i in services.length" :key="i">
@@ -101,6 +102,16 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-footer>
+      <v-row>
+        <v-col cols="12" class="footer">
+
+        </v-col>
+        <v-col cols="12" class="footer-foot">
+
+        </v-col>
+      </v-row>
+    </v-footer>
   </div>
 </template>
 
@@ -155,7 +166,7 @@ export default {
   color: #424143
 
 *
-  border: 1px solid red
+  // border: 1px solid red
 
 .top-bar
   position: sticky
@@ -172,7 +183,7 @@ export default {
   align-items: center
 
 .text-title
-  font-size: 2.5rem
+  font-size: 1.7rem
 
 .text-sub-title
   font-size: 1rem
@@ -192,4 +203,12 @@ export default {
   justify-content: center
   align-items: center
   cursor: pointer
+
+.footer
+  height: 45vh
+  background: #264A99
+
+.footer-foot
+  height: 5vh
+  background: #1B3368
 </style>
