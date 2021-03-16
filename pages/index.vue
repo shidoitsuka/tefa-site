@@ -10,7 +10,7 @@
     >
       <v-toolbar-title>{{ isFixed() }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn small text>Beranda</v-btn>
+      <v-btn small text>{{ !$vuetify.breakpoint.sm }}</v-btn>
       <v-btn small text>Tentang</v-btn>
       <v-btn small text>Layanan Kami</v-btn>
       <v-btn small depressed color="#6897FF" class="white--text"
@@ -19,33 +19,43 @@
     </v-app-bar>
     <v-container fluid class="px-15 ma-0 container">
       <v-row class="full-height first-page">
-        <v-col cols="3">
+        <v-col v-if="$vuetify.breakpoint.smAndDown" md="6" cols="12">
           <v-img
-            class="ml-auto"
-            src="/img/tefa-icon.svg"
-            max-height="100px"
-            max-width="100px"
-          />
-        </v-col>
-        <v-col cols="3">
-          <h1 class="text-title" id="text-title">Teaching Factory</h1>
-          <h4 class="text-sub-title">part of SMK Krian 1</h4>
-        </v-col>
-        <v-col>
-          <v-img
-            max-width="500px"
-            max-height="500px"
+            class="mx-auto"
+            max-width="50vw"
+            max-height="50vw"
             src="/img/header-logo.svg"
           ></v-img>
         </v-col>
+        <v-row class="first-page text-container">
+          <v-col md="3" cols="3">
+            <v-img
+              class="ml-auto"
+              src="/img/tefa-icon.svg"
+              max-height="100px"
+              max-width="100px"
+            />
+          </v-col>
+          <v-col md="3" cols="9">
+            <h1 class="text-title" id="text-title">Teaching Factory</h1>
+            <h4 class="text-sub-title">part of SMK Krian 1</h4>
+          </v-col>
+          <v-col v-if="$vuetify.breakpoint.mdAndUp" md="6" cols="6">
+            <v-img
+              max-width="30vw"
+              max-height="30vw"
+              src="/img/header-logo.svg"
+            ></v-img>
+          </v-col>
+        </v-row>
       </v-row>
 
-      <v-row class="full-height second-page">
+      <v-row class="full-height">
         <v-col cols="6">
           <v-img
             class="ml-auto"
-            max-width="500px"
-            max-height="500px"
+            max-width="30vw"
+            max-height="30vw"
             src="/img/about-us-logo.svg"
           ></v-img>
         </v-col>
@@ -63,7 +73,7 @@
         </v-col>
       </v-row>
 
-      <v-row class="twice-height second-page">
+      <v-row class="twice-height">
         <v-col>
           <v-row>
             <v-col>
@@ -71,13 +81,14 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-cols class="mx-auto">
+            <v-col>
               <v-img
-                width="500px"
-                height="500px"
+                width="30vw"
+                height="30vw"
+                class="mx-auto"
                 src="/img/our-service-logo.svg"
               />
-            </v-cols>
+            </v-col>
           </v-row>
           <v-row class="mx-5">
             <v-col cols="4" v-for="i in services.length" :key="i">
@@ -87,11 +98,15 @@
                   <!-- 6897FF blue -->
                   <v-card
                     v-ripple
+                    width="25vw"
+                    height="25vh"
                     :elevation="hover ? 5 : 0"
-                    :class="'mx-auto my-5 inner-service-text'"
+                    :class="
+                      `mx-auto my-5 inner-service-text ${
+                        i % 2 == 0 ? '' : 'white--text'
+                      }`
+                    "
                     :color="i % 2 == 0 ? '#F2F6FF' : '#6897FF'"
-                    width="300px"
-                    height="200px"
                   >
                     <h1>{{ services[i - 1].name }}</h1>
                   </v-card>
@@ -102,13 +117,36 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-footer>
-      <v-row>
-        <v-col cols="12" class="footer">
-
+    <!-- #264A99 blue -->
+    <!-- #1B3368 darker blue -->
+    <v-footer padless min-height="30vh" color="#264A99">
+      <v-row class="footer">
+        <v-col cols="4">
+          <v-img
+            src="/img/tefa-logo-light.svg"
+            class="mx-auto"
+            height="7vw"
+            width="7vw"
+          />
         </v-col>
-        <v-col cols="12" class="footer-foot">
-
+        <v-col cols="4">
+          <v-img
+            src="/img/smk-bisa-logo.svg"
+            class="mx-auto"
+            width="7vw"
+            height="7vw"
+          />
+        </v-col>
+        <v-col cols="4">
+          <v-img
+            src="/img/smk-logo.svg"
+            class="mx-auto"
+            height="7vw"
+            width="7vw"
+          />
+        </v-col>
+        <v-col class="footer-foot" cols="12">
+          <h3>© 2021 - Teaching Factory SMK Krian 1 Sidoarjo</h3>
         </v-col>
       </v-row>
     </v-footer>
@@ -169,23 +207,31 @@ export default {
   // border: 1px solid red
 
 .top-bar
-  position: sticky
+  position: fixed
+  z-index: 2
 
 .full-height
   height: 100vh
 
 .twice-height
-  height: 200vh
+  height: 175vh
 
 .first-page
   display: flex
   justify-content: center
   align-items: center
+  @media only screen and (max-width: 960px)
+    align-items: flex-end
+
+.text-container
+  @media only screen and (max-width: 960px)
+    align-self: flex-start
 
 .text-title
   font-size: 1.7rem
 
 .text-sub-title
+  font-weight: 400
   font-size: 1rem
 
 .text-title, .text-sub-title
@@ -195,9 +241,6 @@ export default {
 .about-title
   font-size: 1.5rem
 
-.text-sub-title
-  font-weight: 400
-
 .inner-service-text
   display: flex
   justify-content: center
@@ -205,10 +248,14 @@ export default {
   cursor: pointer
 
 .footer
-  height: 45vh
-  background: #264A99
+  height: 30vh
 
 .footer-foot
-  height: 5vh
   background: #1B3368
+  align-self: flex-end
+  text-align: center
+
+.footer-foot h3
+  color: white
+  font-weight: 300
 </style>
